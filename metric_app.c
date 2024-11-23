@@ -5,7 +5,7 @@
 #include <unistd.h>
 
 #define MAX_INPUT_LENGTH 10 // Define a maximum input length for safety
-#define DB_DIRECTORY "metric_app/data_files" // Define the directory structure
+#define DB_DIRECTORY "metric_app/" // Define the directory structure
 #define MAX_USERS 100
 #define MAX_METRICS 100 // For each user 
 #define MAX_NAME_LENGTH 50
