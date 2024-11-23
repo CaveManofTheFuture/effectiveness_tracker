@@ -27,6 +27,7 @@ typedef struct {
 
 // Function prototypes
 void addMetric(User *user);
+void deleteMetric(User *user);
 void recordScore(User *user);
 void saveData(User *user);
 void loadData(User *user);
@@ -65,7 +66,8 @@ int main() {
         printf("2. Record Score\n");
         printf("3. Display Metrics\n");
         printf("4. Save Data\n");
-        printf("5. Exit\n");
+	printf("5. Delete Metric\n");
+        printf("6. Exit\n");
         printf("Choose an option: ");
 
         // Use fgets to read input safely
@@ -100,7 +102,9 @@ int main() {
                 case 4:
                     saveData(&user);
                     break;
-                case 5:
+                case 5: 
+		    deleteMetric(&user); 
+                case 6:
                     printf("Exiting the program.\n");
                     break;
             }
@@ -142,6 +146,36 @@ void createDataDirectory() {
 void initializeUser(User *user, const char *username) {
     strcpy(user->username, username);
     user->metricCount = 0;
+}
+
+// Function to delete a metric
+void deleteMetric(User *user) {
+    char metricName[MAX_NAME_LENGTH];
+
+    printf("Enter metric name to delete: ");
+    if (fgets(metricName, sizeof(metricName), stdin) != NULL) {
+        // Remove newline character if present
+        metricName[strcspn(metricName, "\n")] = '\0';
+    } else {
+        fprintf(stderr, "Error reading metric name.\n");
+        return;
+    }
+
+    // Find the metric and delete it
+    for (int i = 0; i < user->metricCount; i++) {
+    	// If strings match 
+        if (strcmp(user->metrics[i].name, metricName) == 0) {
+            // Shift metrics down to fill the gap
+            for (int j = i; j < user->metricCount - 1; j++) {
+                user->metrics[j] = user->metrics[j + 1];
+            }
+            user->metricCount--; // Decrease the count of metrics
+            printf("Metric '%s' deleted successfully.\n", metricName);
+            return;
+        }
+    }
+
+    printf("Metric '%s' not found.\n", metricName);
 }
 
 // Function to add a new metric
