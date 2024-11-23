@@ -4,7 +4,7 @@
 #include <sys/stat.h>
 #include <unistd.h>
 
-#define MAX_INPUT_LENGTH 10 // Define a maximum input length for safety
+#define MAX_INPUT_LENGTH 20 // Define a maximum input length for safety
 #define DB_DIRECTORY "metric_app/" // Define the directory structure
 #define MAX_USERS 100
 #define MAX_METRICS 100 // For each user 
@@ -83,7 +83,7 @@ int main() {
             }
 
             // Check if the choice is within the valid range
-            if (choice < 1 || choice > 5) {
+            if (choice < 1 || choice > 6) {
                 printf("Invalid choice. Please try again.\n");
                 continue; // Skip the rest of the loop and prompt again
             }
@@ -111,7 +111,7 @@ int main() {
         } else {
             printf("Error reading input. Please try again.\n");
         }
-    } while (choice != 5);
+    } while (choice != 6);
  
     return 0;
     
